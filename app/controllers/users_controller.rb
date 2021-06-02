@@ -9,7 +9,7 @@ class UsersController < ApplicationController
         session[:username] = @user.username
         flash[:notice] = 'Account is created sucessfully'
         redirect_to root_path
-      else
+        else
         flash[:alert] = 'Something went wrong...'
         render new_user_path
       end
@@ -40,6 +40,6 @@ class UsersController < ApplicationController
     private
   
     def signup_params
-      params.require(:user).permit(:username, :fullname, :photo, :cover_image)
+      params.require(:user).permit(:username, :fullname, :image)
     end
   end

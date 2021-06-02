@@ -6,7 +6,8 @@ ruby '3.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+#gem 'sqlite3', '~> 1.4'
+gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
@@ -25,12 +26,25 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+gem 'image_processing', '~> 1.2'
+gem 'shrine', '~> 3.3'
+gem "shrine-cloudinary", "~> 1.1"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootstrap', '~> 4.5'
+gem 'hirb'
+#gem 'paperclip', '~> 6.1'
+
+#gem 'refile', require: 'refile/rails'
+#gem 'refile-mini_magick'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -46,9 +60,12 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 3.26'
+  #gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
+   gem 'rails-controller-testing'
+  gem 'rspec'
+  gem 'shoulda-matchers', '~> 4.0'
   gem 'webdrivers'
 end
 

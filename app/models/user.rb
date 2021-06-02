@@ -1,6 +1,9 @@
 class User < ApplicationRecord
-    has_attached_file :photo
-    has_attached_file :cover_image
+    #has_attached_file :photo
+    #has_attached_file :cover_image
+    #attachment :profile_image
+    include ImageUploader::Attachment(:image)
+    validates :title, presence: true
   
     validates :username, presence: true, uniqueness: true, length: { minimum: 3, maximum: 12 }
     validates :fullname, presence: true, length: { minimum: 5, maximum: 20 }
