@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   end
   get 'sign_in', to: 'sessions#new'
   post 'sign_in', to: 'sessions#create'
-  delete 'logout', to: 'sessions#destroy'
+  post 'logout', to: 'sessions#destroy'
+  get 'logout', to: 'sessions#destroy'
   post 'opinion', to: 'opinions#create'
   post 'follow', to: 'followings#create'
   get 'users/:username', to: 'users#show', as: 'profile'

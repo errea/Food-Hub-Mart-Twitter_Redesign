@@ -9,7 +9,7 @@ module ApplicationHelper
   
     def profile_pic(usr, size = '')
       if usr.image.present?
-        image_tag(usr.image.to_s, alt: usr.username, class: "pr-2 rounded-circle profile-img #{size}")
+        image_tag usr.image, alt: usr.username, class: "pr-2 rounded-circle profile-img #{size}"
       else
         image_tag('https://source.unsplash.com/random/60x60',
                   alt: usr.username, class: 'pr-2 rounded-circle profile-img')
@@ -18,7 +18,7 @@ module ApplicationHelper
   
     def cover_pic(usr)
       if usr.cover_image.present?
-        image_tag(usr.cover_image.to_s, alt: usr.username)
+        image_tag usr.cover_image, alt: usr.username
       else
         image_tag('https://source.unsplash.com/random/750x250',
                   alt: usr.username)

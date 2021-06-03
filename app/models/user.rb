@@ -3,9 +3,10 @@ class User < ApplicationRecord
     #has_attached_file :cover_image
     has_one_attached :image
     has_one_attached :cover_image
+
   
     validates :username, presence: true, uniqueness: true, length: { minimum: 3, maximum: 12 }
-    validates :fullname, presence: true, length: { minimum: 5, maximum: 20 }
+    validates :fullname, presence: true, length: { minimum: 5, maximum: 50 }
     validates_acceptance_of :image, :cover_image,
                                       content_type: ['image/jpg', 'image/jpeg', 'image/png']
   
@@ -16,8 +17,8 @@ class User < ApplicationRecord
     has_many :inverse_followings, class_name: 'Following', foreign_key: 'followed_id'
     has_many :followers, through: :inverse_followings, source: :follower
   
-    #def who_to_follow
-      #User.where.not(id: id).where.not(id: follows).order('created_at DESC')
-    #end
+    def who_to_follow
+      User.where.not(id: id).where.not(id: follows).order('created_at DESC')
+    end
 
 end
