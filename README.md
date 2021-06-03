@@ -2,15 +2,41 @@
 
 # Ruby on Rails [Building With Active Records and Assoiciations:[Private-Event].
 
-># [Collaborative project]
+This project is build for the Ruby on Rails capstone which is based on a redesign of Twitter. It's a real-world-like project, built with business specifications.
+      
+
+<div align="center">
+
+[![View Code](https://img.shields.io/badge/View%20-Code-green)](https://github.com/Dipeshtwis/twitter-redesign)
+[![Github Issues](https://img.shields.io/badge/GitHub-Issues-orange)](https://github.com/Dipeshtwis/twitter-redesign/issues)
+[![GitHub Pull Requests](https://img.shields.io/badge/GitHub-Pull%20Requests-blue)](https://github.com/Dipeshtwis/twitter-redesign/pulls)
+
+</div>
+
+## 📝 Contents
+
+<p align="center">
+<a href="#with">Built with</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<a href="#sc">Screenshot</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<a href="#ll">Live Demo Link</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<a href="#gs">Getting started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<a href="#author">Author</a>
+</p>
+
+
+
+># [Capstone Description]
 >This assignment consists of using the Devise gem to have a first approach at authentication in rails. I was able to build an application A project completed as part of  the Microverse Ruby on Rails Pathwright [Find project specifications here](https://www.theodinproject.com/courses/ruby-on-rails/lessons/associations) to dive into ActiveRecord’s associations. The project involves building a private website with similar functionality to the well known event organization and management platform [Eventbrite](https://www.eventbrite.com/).
 
-## Built With
+## 🔧 Built with<a name = "with"></a>
 
-- Ruby
+- Ruby on Rails (Version: 6.0.3.2)
+- Ruby (Version: 3.0.0)
+- Postgresql (version: 12)
 - [Rspec](https://relishapp.com/rspec/rspec-rails/docs/model-specs)
 - [Capybara](https://www.codewithjason.com/rails-testing-hello-world-using-rspec-capybara/)
-- 
+- Shrine Gem
+- Cloudinary
 - Ruby on Rails
 - webpack
 - Heroku
@@ -20,12 +46,60 @@
 - Node.js
 - Yarn
 
-# Get Started
+## Getting Started <a name = "gs"></a>
 > To get a local copy up and running follow these simple example steps.
 
 <details>
   <summary>Get instructions</summary>
 
+```
+$ cd <folder>
+```
+
+~~~bash
+$ git clone git@github.com:Dipeshtwis/twitter-redesign.git
+$ cd twitter-redesign
+$ bundle install
+$ yarn install --check-files
+~~~
+
+Setup database with:
+
+> make sure you have postgres sql installed and running on your local machine
+
+> Go to config > database.yml
+
+Replace ```xxx``` with your ```own``` postgresql username and password
+```
+username: xxx
+password: xxx
+```
+
+> create and migrate the database by these commands
+
+```
+   rails db:create
+   rails db:migrate
+```
+
+### How to run
+
+Start server with:
+
+```
+    rails s
+```
+
+Open `http://localhost:3000/` in your browser.
+
+
+## To run Test
+
+~~~ruby
+$ rails db:migrate RAILS_ENV=test
+$ rspec --format documentation
+
+~~~
   Clone the repo to your local machine: 
   ```ruby
   $ git clone git clone https://github.com/Mihndim2020/Private-Events.git
@@ -96,6 +170,10 @@ run rails db:migrate to migrate files
     └── public
     └── storage
     └──test
+
+## Live Demo Link <a name = "ll"></a>
+
+[Live Demo](https://bookhelpy.herokuapp.com)
 
 ## Deployment
 1) Git clone this repo and cd the to the `private_events` directory.
@@ -184,7 +262,16 @@ ActionView::Template::Error:
 The issue was the missing alpha value in `application.css` (which was not actually an issue outside the view tests), but I was confused about line 465 and mentions of stdin, which didn't correspond to anything in my project folder but were probably results of the Asset Pipeline.
 Things you may want to cover:
 
-## Screenshots
+## Screenshot <a name = "sc"></a>
+
+### Home Page
+
+![screenshot](./app/assets/images/Book_Helper.png)
+
+### Profile Page
+
+![screenshot](./app/assets/images/Book_Helper_profile.png)
+
 
 For those who are not patient, here are a couple of screenshots of what it looks like
 
@@ -246,7 +333,7 @@ This was an awesome rundown practice and I had a really joyful fun playing with 
 
 </details>  
 
-## Authors
+## ✒️  Authors <a name = "author"></a>
 
 👤 **Eri**
 
@@ -254,21 +341,18 @@ This was an awesome rundown practice and I had a really joyful fun playing with 
 - Twitter: [@Erreakay](https://github.com/errea)
 - Linkedin: [Eri Okereafor](https://www.linkedin.com/in/eri-ngozi-okereafor/)
   
- 👤 **Julius**
-
-- Github: [@Mihndim2020](https://github.com/Mihndim2020)
-- Twitter: [@mihndim](https://github.com/mih-julius) 
-- Linkedin: [Mih Julius](https://www.linkedin.com/mih-julius)
-
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!
 
 Feel free to check the [issues page](https://github.com/Mihndim2020/Private-Events/issues).
 
-## Show your support
+## 👍 Show your support
 
 Give a ⭐️ if you like this project!
+- Design Idea by: [Gregoire Vella](https://www.behance.net/gregoirevella)
+
+- Microverse: [@microverse](https://www.microverse.org/)
 
 ## Acknowledgments
 
@@ -277,134 +361,6 @@ Give a ⭐️ if you like this project!
 ## 📝 License
 
 This project is [MIT](./MIT.md) licensed.
-
-
-# Twitter Redesign
-
-This project is build for the Ruby on Rails capstone which is based on a redesign of Twitter. It's a real-world-like project, built with business specifications.
-      
-
-<div align="center">
-
-[![View Code](https://img.shields.io/badge/View%20-Code-green)](https://github.com/Dipeshtwis/twitter-redesign)
-[![Github Issues](https://img.shields.io/badge/GitHub-Issues-orange)](https://github.com/Dipeshtwis/twitter-redesign/issues)
-[![GitHub Pull Requests](https://img.shields.io/badge/GitHub-Pull%20Requests-blue)](https://github.com/Dipeshtwis/twitter-redesign/pulls)
-
-</div>
-
-## 📝 Contents
-
-<p align="center">
-<a href="#with">Built with</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-<a href="#sc">Screenshot</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-<a href="#ll">Live Demo Link</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-<a href="#gs">Getting started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-<a href="#author">Author</a>
-</p>
-
-## 🔧 Built with<a name = "with"></a>
-
-- Ruby on Rails (Version: 6.0.3.2)
-- Ruby (Version: 2.7.1)
-- Postgresql (version: 12)
-
-## Screenshot <a name = "sc"></a>
-
-### Home Page
-
-![screenshot](./app/assets/images/Book_Helper.png)
-
-### Profile Page
-
-![screenshot](./app/assets/images/Book_Helper_profile.png)
-
-
-## Live Demo Link <a name = "ll"></a>
-
-[Live Demo](https://bookhelpy.herokuapp.com)
-
-
-## Getting Started <a name = "gs"></a>
-
-To get a local copy of the repository please run the following commands on your terminal:
-
-```
-$ cd <folder>
-```
-
-~~~bash
-$ git clone git@github.com:Dipeshtwis/twitter-redesign.git
-$ cd twitter-redesign
-$ bundle install
-$ yarn install --check-files
-~~~
-
-Setup database with:
-
-> make sure you have postgres sql installed and running on your local machine
-
-> Go to config > database.yml
-
-Replace ```xxx``` with your ```own``` postgresql username and password
-```
-username: xxx
-password: xxx
-```
-
-> create and migrate the database by these commands
-
-```
-   rails db:create
-   rails db:migrate
-```
-
-### How to run
-
-Start server with:
-
-```
-    rails s
-```
-
-Open `http://localhost:3000/` in your browser.
-
-
-## To run Test
-
-~~~ruby
-$ rails db:migrate RAILS_ENV=test
-$ rspec --format documentation
-
-~~~
-
-
-## ✒️  Authors <a name = "author"></a>
-
-
-👤 **Dipesh Kumar**
-
-- Github: [@Dipeshtwis](https://github.com/Dipeshtwis)
-- Twitter: [@97deepeshkumar](https://twitter.com/97deepeshkumar)
-- Linkedin: [dipeshtwis](https://www.linkedin.com/in/dipeshtwis/)
-
-
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!
-
-Feel free to check the [issues page](https://github.com/Dipeshtwis/twitter-redesign/issues).
-
-
-## 👍 Show your support
-
-Give a ⭐️ if you like this project!
-
-## :clap: Acknowledgements
-
-- Design Idea by: [Gregoire Vella](https://www.behance.net/gregoirevella)
-
-- Microverse: [@microverse](https://www.microverse.org/)
-
 
 
 <h3 align="center">Life Style Blog-Ruby on Rails</h3>
@@ -420,75 +376,3 @@ Give a ⭐️ if you like this project!
 [![Portfolio](https://img.shields.io/badge/umair--arshad-Portfolio-brightgreen)](https://umairarshad.me/)
 </div>
 <p align="center">It is the rails capstone project and is compulsory to master the ruby on rails curriculum. This project is all about articles like a blog app.</p>
-
-![screenshot](app/assets/images/screen-shot.png)
-
-
-
-
-## Built With
-
-- Ruby on Rails
-
-## Getting Started
-
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-- Text Editor (VSCode is suggested.)
-- Install [Ruby](https://ruby-doc.org/downloads/)
-- Install [Rails](https://guides.rubyonrails.org/getting_started.html)
-- Install [git](https://git-scm.com/downloads)
-
-### Setup
-
-- Open Terminal
-- Change directory to folder to download repository
-- Use `cd <file-path>`
-- Run `git clone https://github.com/umairarshadbutt/life-style.git`
-- cd to the project `cd life-style`
-- Install gems `bundle install`
-- Install Yarn `yarn install --check-files` 
-- Create database `rails db:create`
-- Migrate database `rails db:migrate`
-- Run `rails server`
-- Test `bundle exec rake spec`
-
-
-
-## Authors
-
-👤 **Umair Arshad**
-
-- Github: [@umairarshadbutt](https://github.com/umairarshadbutt)
-- Twitter: [@its_UmairArshad](https://twitter.com/its_UmairArshad)
-- Linkedin: [umair-arshad-butt](https://www.linkedin.com/in/umair-arshad-butt/)
-
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome! Start by:
-
-- Forking the project
-- Cloning the project to your local machine
-- `cd` into the project directory
-- Run `git checkout -b your-branch-name`
-- Make your contributions
-- Push your branch up to your forked repository
-- Open a Pull Request with a detailed description to the development branch of the original project for a review
-
-
-## Show your support
-
-Give a ⭐️ if you like this project!
-
-## Acknowledgments
-
-- Project inspired by Microverse Program
-- Behance: [Behance Design](https://www.behance.net/gallery/14554909/liFEsTlye-Mobile-version)
-- N+1 Queries and How to Avoid Them! [Medium Article](https://medium.com/@bretdoucette/n-1-queries-and-how-to-avoid-them-a12f02345be5)
-
-
-## 📝 License
-
-This project is [MIT](LICENSE) licensed.
