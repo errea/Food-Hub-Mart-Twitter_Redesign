@@ -1,8 +1,8 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Ruby on Rails [Building With Active Records and Assoiciations:[Private-Event].
+# Rails [Twitter-Redesign: Food Mart Hub].
 
-This project is build for the Ruby on Rails capstone which is based on a redesign of Twitter. It's a real-world-like project, built with business specifications.
+This project is build for the Ruby on Rails capstone which is based on a redesign of Twitter. It's a real-world-like project, built with business specifications. [Find project specifications here](https://www.notion.so/Rails-Capstone-project-Twitter-Redesign-ebd18948247d447293f5894a4ea5b393)
       
 
 <div align="center">
@@ -26,7 +26,12 @@ This project is build for the Ruby on Rails capstone which is based on a redesig
 
 
 ># [Capstone Description]
->This assignment consists of using the Devise gem to have a first approach at authentication in rails. I was able to build an application A project completed as part of  the Microverse Ruby on Rails Pathwright [Find project specifications here](https://www.theodinproject.com/courses/ruby-on-rails/lessons/associations) to dive into ActiveRecord’s associations. The project involves building a private website with similar functionality to the well known event organization and management platform [Eventbrite](https://www.eventbrite.com/).
+>Capstone projects are solo projects at the end of the each of the Microverse Main Technical Curriculum sections. Building this project is very important for you because
+
+- It's a real-world-like project, built with business specifications that will look really nice in your portfolio; and
+- You will get feedback about the achievement of technical and soft skills gained during this section of the program.
+
+The project you are going to build for the Ruby on Rails capstone is based on a redesign of Twitter. You should follow the given design of the website, but you must personalize the content, i.e., it can be an app to share opinions about books, wedding business, fishing equipment, mushrooms - anything that you can share opinions about with people who follow you. Feel free to add your own app name and logo.
 
 ## 🔧 Built with<a name = "with"></a>
 
@@ -35,8 +40,7 @@ This project is build for the Ruby on Rails capstone which is based on a redesig
 - Postgresql (version: 12)
 - [Rspec](https://relishapp.com/rspec/rspec-rails/docs/model-specs)
 - [Capybara](https://www.codewithjason.com/rails-testing-hello-world-using-rspec-capybara/)
-- Shrine Gem
-- Cloudinary
+- [Active Storage](https://www.microverse.org/blog/how-to-build-an-image-upload-feature-with-rails-and-active-storage)
 - Ruby on Rails
 - webpack
 - Heroku
@@ -57,7 +61,7 @@ $ cd <folder>
 ```
 
 ~~~bash
-$ git clone git@github.com:Dipeshtwis/twitter-redesign.git
+$ git clone https://github.com/errea/Food-Hub-Mart-Twitter_Redesign.git
 $ cd twitter-redesign
 $ bundle install
 $ yarn install --check-files
@@ -87,7 +91,7 @@ password: xxx
 Start server with:
 
 ```
-    rails s
+$ rails s
 ```
 
 Open `http://localhost:3000/` in your browser.
@@ -100,10 +104,6 @@ $ rails db:migrate RAILS_ENV=test
 $ rspec --format documentation
 
 ~~~
-  Clone the repo to your local machine: 
-  ```ruby
-  $ git clone git clone https://github.com/Mihndim2020/Private-Events.git
-  ```
   Then, install the needed gems:
   ```ruby
   $ bundle install --without production
@@ -116,22 +116,9 @@ $ rspec --format documentation
   ```ruby
   $ rails db:seed
   ```
-  Finally, on root path run a local server:
-  ```ruby
-  $ rails server
-  ```
-  Open browser to view application:
-  ```ruby
-  localhost:3000
-  ```
 </details> 
 
-## Prerequisites
-- Vscode
-- Heroku CLI
-- Terminal
-- Linters Test
-- Rubocop style guide
+
 
 ## Set up
 * Open your terminal and locate the folder you want to clone the repository and follow the steps below to install
@@ -141,7 +128,7 @@ $ rspec --format documentation
 Run the following command into your terminal:
 
 ```console
-run bundle install --without production
+run bundle install 
 
 run rails db:migrate to migrate files
 ```
@@ -186,13 +173,32 @@ run rails db:migrate to migrate files
 
 ## Functionality
 
-Logged in users can create, edit, and invite/uninvite other users to their own events. Users can change their RSVPs to upcoming invitations, but not to past ones.
+Logged in users can create, edit, and follow/unfollow other users. Users can change their RSVPs to upcoming invitations, but not to past ones.
 
-Event hosts can only uninvite users who have not yet confirmed their attendance and can only update the invitation list for upcoming events.
+1. The user logs in to the app, only by typing the username (a proper authenticated login is **not** a requirement).
+2. The user is presented with the homepage (see the *Homepage* screenshot above) that includes:
+    1. Left-side menu (includes only links to pages that are implemented).
+    2. *Tweets* tab in the centre (skip *Photos* and *Videos* for this MVP).
+    3. Right-side section with *Who to follow (*skip *Trending for* this MVP).
+3. The *Tweets* section includes:
+    1. Simple form for creating a tweet.
+    2. List of all tweets (sorted by most recent) that display tweet text and author details.
+4. The *Who to follow* section includes:
+    1. List of profiles that are not followed by the logged-in user (ordered by most recently added).
+5. When the user opens the profile page (see the *Userpage* screenshot above), they can see:
+    1. Left-side menu (includes only links to pages that are implemented).
+    2. Cover picture and *Tweets* tab in the centre (skip other tabs and *Tweet to user* form).
+    3. Right-side section with *Profile detailed info.*
+6. The *Profile detailed info* section includes:
+    1. User photo.
+    2. Button to follow a user.
+    3. Stats: total number of tweets, number of followers and number of following users.
+    4. List of people who follow this user.
+7. At the end extend your MVP app with one simple feature of your choice.
 
 ## Thoughts
 
-One of the main challenges we encountered ran into was deciding how to allow event hosts to invite guests. With our current form-related skillset a checkbox seemed to be the best option, but ideally there would be a text field that autocompletes from the database of users. I struggled for a long time to try for an efficient way of prechecking the box of any user who was already invited:
+One of the main challenges I encountered /ran into was deciding how to upload pictures to the application
 
 ```ruby
 User.order(:username).includes(:invitations).each do |user|
@@ -217,14 +223,6 @@ temp_invitations = @event.invitations.pluck(:recipient_id)
 
 Our eventual solution has the advantages of only making one query, storing a relatively lightweight array of `recipient_id` integers, and diminishing average search times as found elements are deleted from the array. It was much faster than any alternative I tried. Still, it doesn't feel like the most elegant solution.
 
-Another big disadvantage of the checkbox approach for invitations was that I need to handle every invitation for an event any time its invitation list is updated, since there's no way to know which ones changed and target only those. For a large database of users this implementation would need to improve.
-
-We had to use `user.username` instead of `f.label(user.id, user.username)` for the checkbox labels in order to get them to display inline.
-
-We used a scaffold generator for the `Event` model, which proved helpful and educational.
-
-For this project I was a little pickier about the styling, and decided I didn't want the `field-with-error` class applied on `label` elements. To avoid that particular piece of Rails magic I just went with the raw html `<label for='event_name'>Name</label>` instead of `<%#= form.label :name %>`.
-
 ##### Testing
 
 We wrote tests for `spec/controllers/events_controller_spec.rb`, and  `spec/models/*` using the `shoulda-matchers`, `rails-controller-testing`, and `factory-bot-rails` gems. In projects where I wrote my own authorization I had been using this helper method to stub methods related to authentication:
@@ -244,47 +242,23 @@ config.include Devise::Test::ControllerHelpers, type: :view
 config.include Devise::Test::ControllerHelpers, type: :controller
 ```
 
-Then I could use the simple method Devise provides: `sign_in user`.
-
 Because `rspec-rails` was already bundled when I generated the `Event` scaffolding, a bunch of tests were generated in the `spec` folder. I decided to look into these and make them pass as well since they contained techniques I hadn't seen before.
 
 I didn't encounter too many snags here, but getting syntax that worked for stuff like `assert_select "div", /Nov 11 2022 12:00am/, count: 1` in the view specs took me a while. 
 
-I was also getting this quirky error with the views:
 
 ```
-ActionView::Template::Error:
-       Error: Function rgb is missing argument $green.
-               on line 465 of stdin
-       >>   background-color: rgb(216 216 216);
-```
 
-The issue was the missing alpha value in `application.css` (which was not actually an issue outside the view tests), but I was confused about line 465 and mentions of stdin, which didn't correspond to anything in my project folder but were probably results of the Asset Pipeline.
-Things you may want to cover:
 
 ## Screenshot <a name = "sc"></a>
 
 ### Home Page
 
-![screenshot](./app/assets/images/Book_Helper.png)
+![screenshot](./app/assets/images/food_mart1b.png)
 
 ### Profile Page
 
-![screenshot](./app/assets/images/Book_Helper_profile.png)
-
-
-For those who are not patient, here are a couple of screenshots of what it looks like
-
-<p float = 'left'>
-  <img src="img/private_events.png" alt="Private events home page" width="400" height="300">
-  <img src="img/private_events2.png" alt="Private events event card" width="400" height="300">
-  <img src="img/private_events3.png" alt="Private events guest list" width="4000" height="300">
-  <img src="img/rspec.png" alt="Private events guest list" width="400" height="300">
-</p>
-
-## Functionality
-
-As far as this is a training app with focus on ActiveRecord's associations, User authentication and authorization are extremely barebone with no validations or real security of access: no need for a password, anyone is able to sign in/sign up through a basic hand-rolled authentication by their name. After the registration/login they're able to create events, invite other users as well as to enroll for events organized by others. Always because it's an exercise, users can create and enroll for the events with the past dates to practice rails' scopes. In a similar vein, just strictly necessary RESTful actions were implemented in the controllers: for example, you can't edit/delete users/events. Nevertheless, the styling was not requested, I built a minimalistic design using `bulma` gem, a CSS framework based on Flexbox.
+![screenshot](./app/assets/images/food_mart1a.png)
 
 ## Reflection
 
@@ -361,18 +335,3 @@ Give a ⭐️ if you like this project!
 ## 📝 License
 
 This project is [MIT](./MIT.md) licensed.
-
-
-<h3 align="center">Life Style Blog-Ruby on Rails</h3>
-
-<div align="center">
-
-[![Status](https://img.shields.io/badge/status-active-success.svg)](https://github.com/umairarshadbutt/life-style)
-[![Github Issues](https://img.shields.io/badge/GitHub-Issues-orange)](https://github.com/umairarshadbutt/life-style/issues)
-[![GitHub2 Pull Requests](https://img.shields.io/badge/GitHub-Pull%20Requests-blue)](https://github.com/umairarshadbutt/life-style/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-[![Linkedin](https://img.shields.io/badge/-LinkedIn-blue?style=flat&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/umair-arshad-butt/)
-[![Gmail](https://img.shields.io/badge/-Gmail-c14438?style=flat&logo=Gmail&logoColor=white)](mailto:Umair,umair6622@gmail.com)
-[![Portfolio](https://img.shields.io/badge/umair--arshad-Portfolio-brightgreen)](https://umairarshad.me/)
-</div>
-<p align="center">It is the rails capstone project and is compulsory to master the ruby on rails curriculum. This project is all about articles like a blog app.</p>
