@@ -28,6 +28,8 @@ gem 'active_storage_validations'
 # Optional, to use :dimension validator or :aspect_ratio validator
 gem 'mini_magick', '>= 4.9.5'
 
+gem 'rubocop', require: true
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -64,7 +66,7 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  # gem 'capybara', '>= 3.26'
+   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'rails-controller-testing'
