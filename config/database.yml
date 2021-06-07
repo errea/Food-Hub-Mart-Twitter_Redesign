@@ -29,10 +29,10 @@ development:
   <<: *default
   adapter: postgresql
   encoding: unicode
-  database: twist_design_development
+  database: twitt_design_development
   pool: 5
-  username: twist_design_dev
-  password: password3
+  username: eri
+  #password: password3
   port: 5432
 
   # The specified database role being used to connect to postgres.
@@ -69,9 +69,9 @@ test:
   <<: *default
   adapter: postgresql
   encoding: unicode
-  database: twit_design_test
+  database: twitt_design_test
   pool: 5
-  username: twist_design
+  username: eri
   password: password4
 
 # As with config/credentials.yml, you never want to store sensitive information,
