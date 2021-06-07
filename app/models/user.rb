@@ -1,14 +1,20 @@
 class User < ApplicationRecord
-  # has_attached_file :photo
-  # has_attached_file :cover_image
   has_one_attached :image
   has_one_attached :cover_image
 
   validates :username, presence: true, uniqueness: true, length: { minimum: 3, maximum: 12 }
   validates :fullname, presence: true, length: { minimum: 5, maximum: 50 }
-  validates_acceptance_of :image, :cover_image,
-                          content_type: ['image/jpg', 'image/jpeg', 'image/png']
 
+  validates :name, presence: true
+  validates :image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg']
+                                     #dimension: { width: 200, height: 200 }
+  validates :cover_image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+                                     dimension: { width: { min: 800, max: 2400 },
+                                                  height: { min: 600, max: 1800 }, message: 'is not given between dimension' }
+  #validates_acceptance_of :image, :cover_image,
+                          #content_type: ['image/jpg', 'image/jpeg', 'image/png']
+  
+  
   has_many :opinions, foreign_key: 'author_id', dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :followings, class_name: 'Following', foreign_key: 'follower_id'
