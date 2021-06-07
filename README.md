@@ -162,6 +162,9 @@ run rails db:migrate to migrate files
 
 [Live Demo](https://bookhelpy.herokuapp.com)
 
+## Video to capstone project 
+[Live video] ()
+
 ## Deployment
 1) Git clone this repo and cd the to the `private_events` directory.
 2) Run `rails server` in command line to open the application server in your browser via http://localhost:3000 or something similar
@@ -173,7 +176,7 @@ run rails db:migrate to migrate files
 
 ## Functionality
 
-Logged in users can create, edit, and follow/unfollow other users. Users can change their RSVPs to upcoming invitations, but not to past ones.
+Logged in users can create, edit, and follow/unfollow other users.
 
 1. The user logs in to the app, only by typing the username (a proper authenticated login is **not** a requirement).
 2. The user is presented with the homepage (see the *Homepage* screenshot above) that includes:
@@ -201,109 +204,115 @@ Logged in users can create, edit, and follow/unfollow other users. Users can cha
 One of the main challenges I encountered /ran into was deciding how to upload pictures to the application
 
 ```ruby
-User.order(:username).includes(:invitations).each do |user|
-{ checked: user.invitations.any? { |inv| inv.event_id == @event.id } } # Ruby; no index
+class User < ApplicationRecord
+  has_one_attached :image
+  has_one_attached :cover_image
+
+  validates :username, presence: true, uniqueness: true, length: { minimum: 3, maximum: 12 }
+  validates :fullname, presence: true, length: { minimum: 5, maximum: 50 }
+
+  validates :name, presence: true
+  validates :image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg']
+                                     #dimension: { width: 200, height: 200 }
+  validates :cover_image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+                                     dimension: { width: { min: 800, max: 2400 },
+                                                  height: { min: 600, max: 1800 }, message: 'is not given between dimension' }
+  #validates_acceptance_of :image, :cover_image,
+                          #content_type: ['image/jpg', 'image/jpeg', 'image/png']
   
-User.order(:username).includes(:invitations).each do |user|
-{ checked: user.invitations.exists?(event: @event) } # n+1 query
   
-User.all.order(:username)
-  .includes(:invitations)
-  .where('invitations.event_id = ?', @event.id)
-  .references(:invitations).each #where clause filters users, not invitations
+  has_many :opinions, foreign_key: 'author_id', dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :followings, class_name: 'Following', foreign_key: 'follower_id'
+  has_many :follows, through: :followings, source: :followed
+  has_many :inverse_followings, class_name: 'Following', foreign_key: 'followed_id'
+  has_many :followers, through: :inverse_followings, source: :follower
 
-{ checked: @event.invitations.exists?(recipient_id: user.id) }) # n+1 query
-
-{ checked: @event.invitations.any? { |inv| inv.recipient_id == user.id } } # Ruby; no index
-
-temp_invitations = @event.invitations.pluck(:recipient_id)
-{ checked: !!temp_invitations.delete(user.id) } # much faster than anything else I tried
+  def who_to_follow
+    User.where.not(id: id).where.not(id: follows).order('created_at DESC')
+  end
+end
+# much faster using Active storage with it's validations 
 
 ```
 
-Our eventual solution has the advantages of only making one query, storing a relatively lightweight array of `recipient_id` integers, and diminishing average search times as found elements are deleted from the array. It was much faster than any alternative I tried. Still, it doesn't feel like the most elegant solution.
 
-##### Testing
 
-We wrote tests for `spec/controllers/events_controller_spec.rb`, and  `spec/models/*` using the `shoulda-matchers`, `rails-controller-testing`, and `factory-bot-rails` gems. In projects where I wrote my own authorization I had been using this helper method to stub methods related to authentication:
+## Testing
+
+We wrote tests for `spec/controllers/user_controller_spec.rb`, and  `spec/models/*` using the `shoulda-matchers`, `rails-controller-testing`, and `factory-bot-rails` gems. In projects where I wrote my own authorization I had been using this helper method to stub methods related to authentication:
 
 ```ruby
-def login(user)
-  allow_any_instance_of(ApplicationController).to receive(:current_user) { user }
-  allow_any_instance_of(ApplicationController).to receive(:authenticate_user!).and_return(true)
+RSpec.describe User, type: :model do
+  describe 'Association' do
+    it { should have_many(:opinions) }
+    it { should have_many(:comments) }
+    it { should have_many(:follows) }
+    it { should have_many(:followers) }
+  end
+
+  describe 'Validation' do
+    it { should validate_length_of(:username).is_at_least(3) }
+    it { should_not validate_length_of(:username).is_at_least(2) }
+    it { should validate_length_of(:fullname).is_at_most(20) }
+    it { should_not validate_length_of(:fullname).is_at_least(3) }
+    it { should validate_uniqueness_of(:username) }
+  end
+end
 end
 ```
 
-With Devise, however, I just needed to add these lines to `spec/rails_helper.rb`:
 
 ```ruby
-config.include Devise::Test::IntegrationHelpers, type: :request
-config.include Devise::Test::ControllerHelpers, type: :view
-config.include Devise::Test::ControllerHelpers, type: :controller
+RSpec.feature 'Users', type: :feature do
+  before :each do
+    @usr1 = User.create(username: 'errea', fullname: 'Eringozi Okereafor')
+    @usr2 = User.create(username: 'twister', fullname: 'Wingsform')
+    visit '/sign_in'
+    fill_in 'session_username', with: 'errea'
+    click_button 'Login'
+  end
+
+  it 'visit own profile page' do
+    visit profile_path(@usr1.username)
+    expect(page).to have_text('ALL FOODS SUGGESTED BY ERINGOZI OKEREAFOR')
+  end
+
+  it 'visit other profile page' do
+    visit 'users/twister'
+    expect(page).to have_text('ALL BOOKS SUGGESTED BY WINGSFORM')
+  end
+
+  it 'follow a user which has profile page open' do
+    visit 'users/twister'
+    expect(page).to have_text('0 Following')
+    find('a.follow_me').click
+    expect(page).to have_text('1 Following')
+  end
+
+  it 'should logout' do
+    click_link 'Sign out'
+    expect(current_path).to eql(sign_in_path)
+  end
+end
+```
+## Errors and solutions
+```ruby
+##coming soon still doing a compilation
 ```
 
-Because `rspec-rails` was already bundled when I generated the `Event` scaffolding, a bunch of tests were generated in the `spec` folder. I decided to look into these and make them pass as well since they contained techniques I hadn't seen before.
-
-I didn't encounter too many snags here, but getting syntax that worked for stuff like `assert_select "div", /Nov 11 2022 12:00am/, count: 1` in the view specs took me a while. 
-
-
 ```
-
-
 ## Screenshot <a name = "sc"></a>
 
 ### Home Page
 
-![screenshot](./app/assets/images/food_mart1b.png)
+![screenshot](app/assets/images/food_mart1a.png)
 
 ### Profile Page
 
 ![screenshot](./app/assets/images/food_mart1a.png)
 
-## Reflection
-
-This was an awesome rundown practice and I had a really joyful fun playing with associations, until I bumped into extra credit on allowance to invite other users.
-
-<details>
-  <summary>Spoiler alert! Click to continue reading...</summary>
-
-  In the beginning, I added an `Invitations` model to my app, because in real world `invitation` and `enrollment` are two conceptually different things. And I made it work with this setup. IMHO, two join models looked very similar:
-  ```ruby
-  class Enrollment < ApplicationRecord
-    belongs_to :event
-    belongs_to :user
-  end
-  class Invitation < ApplicationRecord
-    belongs_to :event
-    belongs_to :host, class_name: "User"
-    belongs_to :invitee, class_name: "User"
-  end
   ```
-  So, I decided to go with one model, got rid off `Invitations` and put everything in `Enrollment`.
-  ```ruby
-  class Enrollment < ApplicationRecord
-    belongs_to :event
-    belongs_to :user
-    belongs_to :host, class_name: "User"
-    belongs_to :invitee, class_name: "User"
-  end
-  ```
-  As far as `User` invites other `User`, it felt right to apply self joins, so I created something like
-  ```ruby
-  class User < ApplicationRecord
-    has_many :events
-    has_many :enrollments
-    has_many :attended_events, through: :enrollments, source: :event
-    
-    has_many :invited_users, foreign_key: "host_id", class_name: 'Enrollment'
-    has_many :invitees, through: :invited_users
-    has_many :hosting_users, foreign_key: "invitee_id", class_name: 'Enrollment'
-    has_many :hosts, through: :hosting_users
-  end
-  ```
-  And to my surprise associations were working! As far I got rid off `Invitation` controller I had no idea on how to split `enrollment` and `invitation` creation, what routes to use, etc. At this point I tried different things and finished asking support to the forum. @GopherJackets was really helpful in the understanding of my model set up and cleaning it up. Then the conversation with @nalyk inspired me to find an interesting solution: when a creator of the event sends an invitation, it triggers the creation of a new `enrollment` joining only `invitee_id` and `event_id` (I had to set `user_id` as `optional` to make it work). When the invited user accepts the invite by enrolling to the event, it was updating an existing `enrollment` with his `id` in `user_id` column. The only issue was on how to drop an enrollment without canceling the invitation. And here I had an eye-opening talk with @Roli who not only explained how to fix the bug, but helped me polish completely the app and adviced to use `enum status`, which makes the extra task super easy. You're seeing the final result of Data model.
-
-  A couple of interesting articles on `enum` are [here](https://sipsandbits.com/2018/04/30/using-database-native-enums-with-rails/) and [here](https://naturaily.com/blog/ruby-on-rails-enum).
 
 </details>  
 
@@ -319,8 +328,7 @@ This was an awesome rundown practice and I had a really joyful fun playing with 
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/Mihndim2020/Private-Events/issues).
-
+Feel free to check the [issues page](https://github.com/errea/Food-Hub-Mart-Twitter_Redesign/issues)
 ## 👍 Show your support
 
 Give a ⭐️ if you like this project!
