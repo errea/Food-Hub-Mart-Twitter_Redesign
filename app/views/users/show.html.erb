@@ -31,9 +31,9 @@
     
     <div class="card mb-5 mt-3">
         <div class="card-body">
-        <h5 class="card-title border-bottom pb-3">SUGGEST FOOD TO <%= @user.fullname.upcase %></h5>
+        <h5 class="card-title border-bottom pb-3">SUGGEST BOOK-HUB TO <%= @user.fullname.upcase %></h5>
             <%= form_for(@opinion, url: opinion_path) do |f| %>
-                <%= f.text_field :text, autofocus: true, class: "form-control", placeholder: "Suggest any food by tweet ..." %>
+                <%= f.text_field :text, autofocus: true, class: "form-control", placeholder: "Suggest any Book-hub by tweet ..." %>
                 <div class="actions">
               <%= f.submit class: "btn btn-primary float-right m-3" %>
             </div>
@@ -43,7 +43,7 @@
     
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title pb-2">ALL FOOD-MART SUGGESTED BY <%= @user.fullname.upcase %></h5>
+            <h5 class="card-title pb-2">ALL BOOK-HUB SUGGESTED BY <%= @user.fullname.upcase %></h5>
             <%= render @opinions %>
         </div>
     </div>
