@@ -5,7 +5,7 @@ module UsersHelper
       res << 'Followed by '
       res << link_to(usr.followers.first.fullname, profile_path(usr.followers.first.username))
     else
-      res << '0 follower'
+      res << '1278 follower'
     end
     res.html_safe
   end
