@@ -2,25 +2,25 @@ require 'rails_helper'
 
 RSpec.feature 'Users', type: :feature do
   before :each do
-    @usr1 = User.create(username: 'errea', fullname: 'Eringozi Okereafor')
-    @usr2 = User.create(username: 'twister', fullname: 'Wingsform')
+    @user1 = User.create(username: 'kamila', fullname: 'Camela Jones')
+    @user2 = User.create(username: 'great', fullname: 'Deep Water')
     visit '/sign_in'
-    fill_in 'session_username', with: 'errea'
+    fill_in 'session_username', with: 'kamila'
     click_button 'Login'
   end
 
   it 'visit own profile page' do
-    visit profile_path(@usr1.username)
-    expect(page).to have_text('ALL FOODS SUGGESTED BY ERINGOZI OKEREAFOR')
+    visit profile_path(@user1.username)
+    expect(page).to have_text('ALL BOOKS SUGGESTED BY CAMELA JONES')
   end
 
   it 'visit other profile page' do
-    visit 'users/twister'
-    expect(page).to have_text('ALL BOOKS SUGGESTED BY WINGSFORM')
+    visit 'users/great'
+    expect(page).to have_text('ALL BOOKS SUGGESTED BY DEEP WATER')
   end
 
   it 'follow a user which has profile page open' do
-    visit 'users/twister'
+    visit 'users/great'
     expect(page).to have_text('0 Following')
     find('a.follow_me').click
     expect(page).to have_text('1 Following')

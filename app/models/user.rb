@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_one_attached :cover_image
 
   validates :username, presence: true, uniqueness: true, length: { minimum: 3, maximum: 12 }
-  validates :fullname, presence: true, length: { minimum: 5, maximum: 50 }
+  validates :fullname, presence: true, length: { minimum: 5, maximum: 20 }
 
   validates :image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg']
 

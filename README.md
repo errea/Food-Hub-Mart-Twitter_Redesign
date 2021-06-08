@@ -301,18 +301,21 @@ end
 ##coming soon still doing a compilation
 ```
 
-```
+
 ## Screenshot <a name = "sc"></a>
 
 ### Home Page
 
-![screenshot](app/assets/images/food_mart1a.png)
 
-### Profile Page
+## Screenshots
 
-![screenshot](./app/assets/images/food_mart1a.png)
+For those who are not patient, here are a couple of screenshots of what it looks like
 
-  ```
+<p float = 'left'>
+  <img src="img/food_mart1a.png" alt="Private events home page" width="500" height="300">
+  <img src="img/food_mart1a.png" alt="Private events event card" width="500" height="300">
+</p>
+  
 
 </details>  
 
