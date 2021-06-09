@@ -23,7 +23,6 @@ RSpec.feature 'Users', type: :feature do
 
     fill_in 'session_username', with: 'great'
     click_button 'Login'
-
   end
 
   it 'followers are shown in home page' do
