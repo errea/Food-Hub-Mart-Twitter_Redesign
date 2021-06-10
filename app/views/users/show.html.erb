@@ -44,6 +44,6 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title pb-2">ALL BOOK-HUB SUGGESTED BY <%= @user.fullname.upcase %></h5>
-            <%= render @user.opinions.order_by_most_recent %>
+            <%= render @user.opinions_path.order_by_most_recent %>
         </div>
     </div>
