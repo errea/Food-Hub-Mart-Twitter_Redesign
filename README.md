@@ -160,7 +160,7 @@ run rails db:migrate to migrate files
 
 ## Live Demo Link <a name = "ll"></a>
 
-[Live Demo](https://bookhelpy.herokuapp.com)
+[Live Demo](https://limitless-tundra-20059.herokuapp.com/)
 
 ## Video to capstone project 
 [Live video] ()
