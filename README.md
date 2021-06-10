@@ -163,7 +163,8 @@ run rails db:migrate to migrate files
 [Live Demo](https://limitless-tundra-20059.herokuapp.com/)
 
 ## Video to capstone project 
-[Live video] ()
+[Live video in loom](https://www.loom.com/share/119f4fb8f1b24413baba2b86e6c16b29)
+[Live video in loom2](https://www.loom.com/share/7ae3b5e29269402ab5891d97cade8272)
 
 ## Deployment
 1) Git clone this repo and cd the to the `private_events` directory.
