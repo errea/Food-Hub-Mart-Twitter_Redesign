@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def cover_pic(usr)
-    if usr.cover_image.present?
+    if usr.cover_image.attached?
       image_tag usr.cover_image, alt: usr.username
     else
       image_tag('https://source.unsplash.com/random/750x250',
