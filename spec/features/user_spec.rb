@@ -31,7 +31,7 @@ RSpec.feature 'Users', type: :feature do
     fill_in 'session_username', with: 'great'
     click_button 'Login'
   end
-  
+
   it 'should logout' do
     click_button 'Login'
     expect(current_path).to eql(sign_in_path)
