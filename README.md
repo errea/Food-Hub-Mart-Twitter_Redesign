@@ -167,7 +167,7 @@ run rails db:migrate to migrate files
 [Live video in loom2](https://www.loom.com/share/7ae3b5e29269402ab5891d97cade8272)
 
 ## Deployment
-1) Git clone this repo and cd the to the `private_events` directory.
+1) Git clone this repo and cd the to the `Twitter_redesign` directory.
 2) Run `rails server` in command line to open the application server in your browser via http://localhost:3000 or something similar
 3) Run `heroku start`.
 4) heroku run
